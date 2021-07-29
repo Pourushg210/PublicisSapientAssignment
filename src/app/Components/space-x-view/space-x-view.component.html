@@ -1,0 +1,61 @@
+<body style="background-color: grey;overflow: auto;">
+    <div>
+        <p style="margin-left: 2%;font-size: 24px;"><b>SpaceX Launch Programs</b></p>
+    </div>
+    <div class="master-container">
+        <div class="filter-card" style="background-color:rgb(145, 131, 131);">
+            <mat-card>
+                <mat-card-title>Filters</mat-card-title>
+
+
+                <p style="text-align: center;">Launch Year</p>
+                <hr>
+                <div class="button-container">
+                    <div class="btn-div" *ngFor="let year of launchYears">
+                        <button (click)="applyLaunchYear(year)" [ngClass]="year%2!==0?'even-btn':'odd-btn'">
+                            {{year}}
+                        </button>
+                    </div>
+                </div>
+                <br>
+
+                <p style="text-align: center;">Succesful Launch</p>
+                <hr>
+                <div class="button-container">
+                    <div class="btn-div" *ngFor="let result of booleanArray; let index=index">
+                        <button (click)="filterLaunchSuccess(result)" [ngClass]="index%2!==0?'even-btn':'odd-btn'">
+                            {{result.toString()| titlecase}}
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <p style="text-align: center;">Succesful Landing</p>
+                <hr>
+                <div class="button-container">
+                    <div class="btn-div" *ngFor="let result of booleanArray; let index=index">
+                        <button (click)="filterLandSuccess(result)" [ngClass]="index%2!==0?'even-btn':'odd-btn'">
+                            {{result.toString()| titlecase}}
+                        </button>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="cards-container">
+
+            <mat-card *ngFor="let sdData of spaceShipData; let index=index;" class="card">
+                <div>
+                    <div class="img-container">
+                        <img src="{{ sdData.links.mission_patch_small }}" onerror="this.src='assets/images/notfound.jpg'" alt="Mission_Image" class="image">
+                    </div>
+                    <h3 style="color: blue;">{{sdData.mission_name}} # {{sdData.flight_number}}</h3>
+                    <p><b style="margin-right:5px;">Mission Id :</b>{{sdData.mission_id}}</p>
+                    <p><b style="margin-right:5px;">Launch Year :</b>{{sdData.launch_year}}</p>
+                    <p><b style="margin-right:5px;">Successful Launch :</b>{{sdData.launch_success}}</p>
+                    <p><b style="margin-right:5px;">Successful Landing :</b>{{sdData.rocket.first_stage.cores[0].land_success}}</p>
+                </div>
+            </mat-card>
+
+        </div>
+    </div>
+</body>
